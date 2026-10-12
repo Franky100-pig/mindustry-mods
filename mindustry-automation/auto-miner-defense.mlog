@@ -1,0 +1,39 @@
+// ============================================================
+//  自动挖矿 + 自动反击  Mindustry Logic 程序（单机用）
+//  作用：接管你的飞行单位（Poly / Mega 等），
+//        没敌人就去核心附近挖铜，发现敌人就锁定开火。
+//  用法：造一个 Processor（逻辑处理器）并通电，
+//        造一个单位工厂产出至少 1 只 Poly，
+//        打开 Processor 的代码编辑器，把下面全部粘进去。
+// ============================================================
+
+loop:
+// 每轮重新绑定一个可用的飞行单位
+ubind @poly
+
+// 找最近的敌人（任意阵营/类型，半径 60，按距离排序）
+uradar enemy any any 60 sortDistance enemyUnit
+
+// 发现敌人 -> 跳去 fight 开火
+jump fight notEqual enemyUnit null
+
+// 没敌人：在核心附近找铜矿
+ulocate ore core ox oy found copper
+
+// 没找到铜矿 -> 回到循环开头
+jump loop equal found 0
+
+// 找到铜矿 -> 派单位去挖
+ucontrol mine ox oy 0 0
+
+// 回到循环
+jump loop always 0 0 0
+
+fight:
+// 读出敌人坐标
+sensor ex enemyUnit @x
+sensor ey enemyUnit @y
+// 锁定并开火（最后一个参数 shoot = 1）
+ucontrol target ex ey 1 0
+// 回到循环
+jump loop always 0 0 0

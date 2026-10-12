@@ -1,0 +1,6 @@
+type: Wall
+name: hyper-wall
+description: A super-tough wall from Franky's first mod.
+size: 2
+health: 3000
+solid: true

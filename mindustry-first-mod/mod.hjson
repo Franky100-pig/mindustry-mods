@@ -1,0 +1,6 @@
+name: "franky-first-mod"
+displayName: "[#ff66cc]Franky's First Mod[]"
+author: "Franky"
+description: "My first Mindustry mod — a custom super-tough wall. Edit freely, it's GPL too."
+version: "1.0"
+minGameVersion: "146"
